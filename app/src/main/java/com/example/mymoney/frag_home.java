@@ -65,7 +65,7 @@ public class frag_home extends Fragment {
 //    }
 //
     RecyclerView recyclerView;
-    RecyclerView.Adapter adapter;
+    static RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager layoutManager;
     View view;
 

@@ -3,12 +3,15 @@ package com.example.mymoney;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.provider.Telephony;
 import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * A broadcast receiver who listens for incoming SMS
@@ -18,9 +21,12 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 
     private static final String TAG = "SmsBroadcastReceiver";
     public static Integer amount = 10;
+    public static final String PREFS_NAME = "MyApp_Settings";
 
     @Override
     public void onReceive(Context context, Intent intent) {
+
+        SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
         myDB = new DatabaseHelper(context);
 
@@ -56,6 +62,7 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
                     if (smsBody.contains("CREDITED")) {
                         Log.d(TAG, "credited");
                     } else if (smsBody.contains("DEBITED")) {
+                        amount = 0 - amount;
                         Log.d(TAG, "debited");
                     }
 
@@ -64,6 +71,8 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 
                     boolean isInserted = myDB.insertData(amount);
                     if(isInserted == true){
+                        String value = settings.getString("key", "");
+
 
                         Toast.makeText(context,"Data Inserted",Toast.LENGTH_LONG).show();
                         frag_home.adapter.notifyItemChanged(0);
@@ -71,9 +80,7 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
                     else
 
                         Toast.makeText(context,"Data Not Inserted",Toast.LENGTH_LONG).show();
-
                 }
-
             }
         }
     }

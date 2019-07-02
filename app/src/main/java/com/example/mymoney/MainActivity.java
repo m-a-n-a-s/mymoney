@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.provider.SyncStateContract;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         if (!hasReadSmsPermission()) {
             showRequestPermissionsInfoAlertDialog();
         }
+        //SyncStateContract.Constants.instance(this.getApplicationContext());
 
         SharedPreferences pref = getApplicationContext().getSharedPreferences("Transactions", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();

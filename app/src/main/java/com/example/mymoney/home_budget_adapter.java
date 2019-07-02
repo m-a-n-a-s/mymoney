@@ -19,10 +19,13 @@ import java.util.Calendar;
 
 public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapter.ViewHolder> {
 
+    BudgetDatabaseHelper bdHelper;
+
     DatabaseHelper databaseHelper;
     private ArrayList<home_budget> budget;
 
     public home_budget_adapter (Context context, ArrayList<home_budget> list){
+        bdHelper = new BudgetDatabaseHelper(context);
         databaseHelper = new DatabaseHelper(context);
         budget = list;
     }
@@ -62,10 +65,14 @@ public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapte
     public void onBindViewHolder(@NonNull home_budget_adapter.ViewHolder holder, int position) {
 
         holder.itemView.setTag(budget.get(position));
+        int spent_today = 0;
 
         Calendar cal = Calendar.getInstance();
         int currentMonth = cal.get(Calendar.MONTH);
+        int currentDate = cal.get(Calendar.DATE);
         Cursor cursor = (Cursor) databaseHelper.getTransactions();
+        Cursor bdcursor = (Cursor) bdHelper.getTransactions();
+
 
         StringBuffer sb = new StringBuffer();
         Integer[] months = new Integer[13];
@@ -76,30 +83,64 @@ public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapte
         while(cursor.moveToNext()) {
             sb.append(cursor.getString(1) + "---> " + cursor.getString(2) + "\n");
             int month = Integer.parseInt(""+sb.charAt(5) + sb.charAt(6));
-            months[month] += Integer.parseInt(cursor.getString(2));
-            months[12] = Integer.parseInt(""+sb.charAt(0) + sb.charAt(1) + sb.charAt(2) + sb.charAt(3)) ;
-        }
+            if(cursor.getString(2).charAt(0) == '-' )
+            {
+                months[month] += 0-Integer.parseInt(cursor.getString(2));
+                months[12] = Integer.parseInt("" + sb.charAt(0) + sb.charAt(1) + sb.charAt(2) + sb.charAt(3));
+                Log.d(TAG,"\n\n\n"+sb.charAt(8)+sb.charAt(9)+"\n\n\n");
+                Log.d(TAG,"\n\n\n"+sb.charAt(5)+sb.charAt(6)+"\n\n\n");
 
-        //Toast.makeText(getApplicationContext(), sb, Toast.LENGTH_SHORT).show();
-        Log.d(TAG, Arrays.toString(months));
-        Log.d(TAG, ""+currentMonth);
+                if(
+                        (currentDate == Integer.parseInt(""+sb.charAt(8)+sb.charAt(9)))
+                                &&
+                                (currentMonth + 1 == Integer.parseInt(""+sb.charAt(5)+sb.charAt(6))))
+                {
+                    spent_today +=   0-Integer.parseInt(cursor.getString(2));
+
+                }
+            }
+        }
+        int budgetpo = 5000;
+        float percent = ((float)months[currentMonth+1]/budgetpo)*100;
+
+        cal.set(cal.YEAR, cal.MONTH, currentDate);
+        int maxDay = cal.getActualMaximum(cal.DAY_OF_MONTH);
+        int daysLeft = maxDay-currentDate+1;
+        Log.d("snla", "\n\n\n"+maxDay+"\n\n\n"+cal.DATE);
+
+
         ArrayList<String> arrayList = new ArrayList<String>();
         for(int s:months) {
             arrayList.add(String.valueOf(s));
         }
+        StringBuffer budgetsb = new StringBuffer();
 
-        //tv.setText("Spent: "+months[currentMonth+1]);
-        holder.tv_budget.setText(budget.get(position).getAmount());
-        holder.tv_spend.setText(budget.get(position).getSpend());
+
+        int currMonth = Calendar.getInstance().get(Calendar.MONTH);
+
+        int budget_for = 0, month_no = -1;
+        while(bdcursor.moveToNext()) {
+            month_no = Integer.parseInt(bdcursor.getString(1));
+            if(month_no == currMonth) {
+                budget_for = Integer.parseInt(bdcursor.getString(2));
+                Log.d(TAG, "\n\n\n" + bdcursor.getString(0) + "\n\n\n");
+            }
+        }
+
+        holder.tv_budget.setText(" Budget : "+budget_for);
+        holder.tv_spend.setText("Spent: "+months[currentMonth+1]);
 
         //holder.tv_spend_today.setText(budget.get(position).getSpend_today());
-        holder.tv_spend_today.setText("Spent***: "+months[currentMonth+1]);
+        holder.tv_spend_today.setText("Today: "+spent_today);
         holder.tv_start_date.setText(budget.get(position).getStart_date());
-        holder.tv_end_date.setText(budget.get(position).getEnd_date());
-        holder.tv_days_left.setText(budget.get(position).getDays_left());
+        holder.tv_end_date.setText("");
+        if(daysLeft==1)
+            holder.tv_days_left.setText(daysLeft + " day left");
+        else
+            holder.tv_days_left.setText((daysLeft + " days left"));
 
-
-
+        holder.progress_bar.setProgress(percent);
+        Log.d("OIPOOK",""+percent);
 
     }
 

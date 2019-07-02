@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.util.Log;
 import android.widget.TextView;
 
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -14,12 +15,14 @@ public class ApplicationClass extends Application {
 
     public static ArrayList<Budget> budget_list;
     public static ArrayList<home_budget> home_budget_list;
+
     @Override
     public void onCreate() {
         super.onCreate();
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
-
+        BudgetDatabaseHelper bdhelper = new BudgetDatabaseHelper(this);
         Cursor cursor = (Cursor) databaseHelper.getTransactions();
+        Cursor bdcursor = (Cursor) bdhelper.getTransactions();
         Calendar cal = Calendar.getInstance();
         int currentMonth = cal.get(Calendar.MONTH);
 
@@ -49,7 +52,17 @@ public class ApplicationClass extends Application {
 
 
         budget_list = new ArrayList<Budget>();
-        budget_list.add(new Budget("1000", "march"));
+
+        while(bdcursor.moveToNext()){
+            String month;
+            String amount;
+            month = bdcursor.getString(0);
+            amount = bdcursor.getString(1);
+            String monthString = new DateFormatSymbols().getMonths()[Integer.parseInt(month)-1];
+            budget_list.add(new Budget(amount,monthString));
+
+        }
+        //budget_list.add(new Budget("1000", "march"));
 
         home_budget_list = new ArrayList<home_budget>();
         home_budget_list.add(new home_budget("Budget:5000","Spent :" + Integer.toString(totalSpent), "Spend Today:500","1 June 2019","30 June 2019", "2 Days Left"));

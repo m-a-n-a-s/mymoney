@@ -87,8 +87,8 @@ public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapte
             {
                 months[month] += 0-Integer.parseInt(cursor.getString(2));
                 months[12] = Integer.parseInt("" + sb.charAt(0) + sb.charAt(1) + sb.charAt(2) + sb.charAt(3));
-                Log.d(TAG,"\n\n\n"+sb.charAt(8)+sb.charAt(9)+"\n\n\n");
-                Log.d(TAG,"\n\n\n"+sb.charAt(5)+sb.charAt(6)+"\n\n\n");
+                //Log.d(TAG,"\n\n\n"+sb.charAt(8)+sb.charAt(9)+"\n\n\n");
+                //Log.d(TAG,"\n\n\n"+sb.charAt(5)+sb.charAt(6)+"\n\n\n");
 
                 if(
                         (currentDate == Integer.parseInt(""+sb.charAt(8)+sb.charAt(9)))
@@ -100,8 +100,8 @@ public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapte
                 }
             }
         }
-        int budgetpo = 5000;
-        float percent = ((float)months[currentMonth+1]/budgetpo)*100;
+
+
 
         cal.set(cal.YEAR, cal.MONTH, currentDate);
         int maxDay = cal.getActualMaximum(cal.DAY_OF_MONTH);
@@ -117,14 +117,22 @@ public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapte
 
 
         int currMonth = Calendar.getInstance().get(Calendar.MONTH);
+        Log.d("a","\n\n\n\nCurrent Month" + currMonth);
 
         int budget_for = 0, month_no = -1;
         while(bdcursor.moveToNext()) {
-            month_no = Integer.parseInt(bdcursor.getString(1));
-            if(month_no == currMonth) {
-                budget_for = Integer.parseInt(bdcursor.getString(2));
+            month_no = Integer.parseInt(bdcursor.getString(0));
+            if(month_no == currMonth+1) {
+                budget_for = Integer.parseInt(bdcursor.getString(1));
                 Log.d(TAG, "\n\n\n" + bdcursor.getString(0) + "\n\n\n");
+                break;
             }
+        }
+
+        float percent = 100;
+        if (budget_for != 0) {
+
+            percent = ((float) months[currentMonth + 1] / budget_for) * 100;
         }
 
         holder.tv_budget.setText(" Budget : "+budget_for);
@@ -132,7 +140,7 @@ public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapte
 
         //holder.tv_spend_today.setText(budget.get(position).getSpend_today());
         holder.tv_spend_today.setText("Today: "+spent_today);
-        holder.tv_start_date.setText(budget.get(position).getStart_date());
+        holder.tv_start_date.setText("");
         holder.tv_end_date.setText("");
         if(daysLeft==1)
             holder.tv_days_left.setText(daysLeft + " day left");

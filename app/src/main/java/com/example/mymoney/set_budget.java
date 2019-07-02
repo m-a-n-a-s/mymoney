@@ -88,7 +88,7 @@ public class set_budget extends AppCompatActivity {
                     }
 
                     ApplicationClass.budget_list.add(new Budget(budget_amount, month));
-
+                    frag_home.adapter.notifyItemChanged(0);
                     frag_notifiactions.myAdapter.notifyDataSetChanged();
 
                     //frag_notifiactions.budget_list.

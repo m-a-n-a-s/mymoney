@@ -3,19 +3,26 @@ package com.example.mymoney;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Calendar;
+
 
 public class set_budget extends AppCompatActivity {
 
     EditText et_budget;
-    EditText et_month;
+    //EditText et_month;
     Button bt_submit;
+    Spinner spinner_month;
 
     //Fragment fragNotifications = new frag_notifiactions();
     //FragmentManager fragmentManager;
@@ -32,8 +39,27 @@ public class set_budget extends AppCompatActivity {
 
 
         et_budget = findViewById(R.id.et_budget);
-        et_month = findViewById(R.id.et_month);
+        //et_month = findViewById(R.id.et_month);
         bt_submit = findViewById(R.id.bt_submit);
+        spinner_month = (Spinner) findViewById(R.id.spinner_months);
+
+        List<String> categories = new ArrayList<String>();
+        categories.add("January");
+        categories.add("February");
+        categories.add("March");
+        categories.add("April");
+        categories.add("May");
+        categories.add("June");
+        categories.add("July");
+        categories.add("August");
+        categories.add("September");
+        categories.add("October");
+        categories.add("November");
+        categories.add("December");
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_month.setAdapter(dataAdapter);
 
 //        fragmentManager = this.getSupportFragmentManager();
 //        fragNotifications= (frag_notifiactions) fragmentManager.
@@ -41,12 +67,16 @@ public class set_budget extends AppCompatActivity {
         bt_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(et_budget.getText().toString().isEmpty()||et_month.getText().toString().isEmpty()){
+                if(et_budget.getText().toString().isEmpty()){//||et_month.getText().toString().isEmpty()){
                     Toast.makeText(set_budget.this, "Please enter all fields!", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     budget_amount = et_budget.getText().toString().trim();
-                    month = et_month.getText().toString().trim();
+
+                    //month = et_month.getText().toString().trim();
+                    month = String.valueOf(spinner_month.getSelectedItem());
+
+                    //month = et_month.getText().toString().trim();
                     int monthno=-1;
                     //month = month.toUpperCase();
                     if (month.equals("January"))
@@ -79,6 +109,7 @@ public class set_budget extends AppCompatActivity {
                     } else if(month.equals("December")){
                         monthno = 11;
                     }
+
 
 
                     boolean isInserted = bdHelper.insertData(monthno,Integer.parseInt(budget_amount));

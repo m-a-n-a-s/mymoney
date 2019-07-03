@@ -15,6 +15,7 @@ public class ApplicationClass extends Application {
 
     public static ArrayList<Budget> budget_list;
     public static ArrayList<home_budget> home_budget_list;
+    public static ArrayList<Transaction> transaction_list;
 
     @Override
     public void onCreate() {
@@ -67,6 +68,9 @@ public class ApplicationClass extends Application {
         home_budget_list = new ArrayList<home_budget>();
         home_budget_list.add(new home_budget("Budget:5000","Spent :" + Integer.toString(totalSpent), "Spend Today:500","1 June 2019","30 June 2019", "2 Days Left"));
 
+
+        transaction_list = new ArrayList<Transaction>();
+        transaction_list.add(new Transaction("Paytm to Ambani","29 June","Rs 5","Rs 0"));
 
     }
 }

@@ -5,7 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 /**
@@ -60,14 +63,33 @@ public class frag_dash extends Fragment {
 //    }
 
 //    TextView tvdash;
+    RecyclerView recyclerView;
+    static  RecyclerView.Adapter transadapter;
+    RecyclerView.LayoutManager layoutManager;
+    View view;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_frag_dash, container, false);
+        view = inflater.inflate(R.layout.fragment_frag_dash, container, false);
 //        tvdash = (TextView)view.findViewById(R.id.tvdash);
 //        tvdash.setText("welcome to dashboard");
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        recyclerView = view.findViewById(R.id.rv_transactions);
+        recyclerView.setHasFixedSize(true);
+
+        layoutManager = new LinearLayoutManager(this.getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+
+        transadapter = new transaction_adapter(this.getActivity(), ApplicationClass.transaction_list);
+        recyclerView.setAdapter(transadapter);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

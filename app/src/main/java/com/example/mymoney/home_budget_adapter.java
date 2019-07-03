@@ -34,9 +34,11 @@ public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapte
         TextView tv_budget;
         TextView tv_spend;
         TextView tv_spend_today;
-        TextView tv_start_date;
-        TextView tv_end_date;
+        //TextView tv_start_date;
+        //TextView tv_end_date;
+        TextView tv_month;
         TextView tv_days_left;
+        TextView tv_safe_spend;
         CircularProgressBar progress_bar;
 
         public ViewHolder(@NonNull View itemView) {
@@ -44,8 +46,10 @@ public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapte
             tv_budget = itemView.findViewById(R.id.tv_budget);
             tv_spend = itemView.findViewById(R.id.tv_spend);
             tv_spend_today = itemView.findViewById(R.id.tv_spend_today);
-            tv_start_date = itemView.findViewById(R.id.tv_start_date);
-            tv_end_date = itemView.findViewById(R.id.tv_end_date);
+            //tv_start_date = itemView.findViewById(R.id.tv_start_date);
+            //tv_end_date = itemView.findViewById(R.id.tv_end_date);
+            tv_month= itemView.findViewById(R.id.tv_month);
+            tv_safe_spend = itemView.findViewById(R.id.tv_safe_spend);
             tv_days_left= itemView.findViewById(R.id.tv_days_left);
             progress_bar= itemView.findViewById(R.id.progress_bar);
 
@@ -139,9 +143,10 @@ public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapte
         holder.tv_spend.setText("Spent: "+months[currentMonth+1]);
 
         //holder.tv_spend_today.setText(budget.get(position).getSpend_today());
-        holder.tv_spend_today.setText("Today: "+spent_today);
-        holder.tv_start_date.setText("");
-        holder.tv_end_date.setText("");
+        holder.tv_spend_today.setText("Spent Today: "+spent_today);
+        //holder.tv_start_date.setText("");
+        //holder.tv_end_date.setText("");
+        holder.tv_month.setText("Current month:");
         if(daysLeft==1)
             holder.tv_days_left.setText(daysLeft + " day left");
         else

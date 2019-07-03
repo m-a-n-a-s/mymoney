@@ -1,17 +1,26 @@
 package com.example.mymoney;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.provider.Telephony;
 import android.telephony.SmsMessage;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
+
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static android.content.Context.MODE_PRIVATE;
+import static android.content.Context.NOTIFICATION_SERVICE;
 
 /**
  * A broadcast receiver who listens for incoming SMS
@@ -49,6 +58,7 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 //            if(!(smsSender.charAt(0) =='+') && !smsSender.matches("[0-9]+"))
             if(true)
             {
+                //MainActivity.getInstance().notify(context);
                 Log.d(TAG, "\n\n\nInside 1 if\n\n\n");
 
                 Pattern regex = Pattern.compile("(?:RS\\.?|INR)\\s*(\\d+(?:[.,]\\d+)*)|(\\d+(?:[.,]\\d+)*)\\s*(?:RS\\.?|INR)");
@@ -84,6 +94,7 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
             }
         }
     }
+
 }
 
 

@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     final FragmentManager fm = getSupportFragmentManager();
     Fragment active = fragment1;
     Fragment currentFragment = null;
+    private static MainActivity instance;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -96,19 +97,24 @@ public class MainActivity extends AppCompatActivity {
         editor.putInt("limit", 50000);
         editor.apply();
         //mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+        instance = this;
 
     }
 
     private final String CHANNEL_ID = "personal notifications";
 
-    public void notify (View view){
+    public static MainActivity getInstance() {
+        return instance;
+    }
+
+    public void notify (int pos){
         createchannel();
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
                 builder.setSmallIcon(R.drawable.ic_icon);
-                builder.setContentTitle("My notification");
-                builder.setContentText("Hello World!");
-                builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                builder.setContentTitle("Hold On !!");
+                builder.setContentText("You have spent 90% of your planned budget this month!");
+                builder.setPriority(NotificationCompat.PRIORITY_HIGH);
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
 

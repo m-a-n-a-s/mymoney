@@ -148,6 +148,11 @@ public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapte
             holder.tv_days_left.setText((daysLeft + " days left"));
 
         holder.progress_bar.setProgress(percent);
+
+        if(percent >= 90){
+            MainActivity.getInstance().notify(position);
+        }
+
         Log.d("OIPOOK",""+percent);
 
     }

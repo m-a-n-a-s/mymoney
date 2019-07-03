@@ -1,6 +1,7 @@
 package com.example.mymoney;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -10,8 +11,11 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Calendar;
+
 
 public class set_budget extends AppCompatActivity {
 
@@ -31,6 +35,8 @@ public class set_budget extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_budget);
+        final BudgetDatabaseHelper bdHelper = new BudgetDatabaseHelper(this);
+
 
         et_budget = findViewById(R.id.et_budget);
         //et_month = findViewById(R.id.et_month);
@@ -66,11 +72,54 @@ public class set_budget extends AppCompatActivity {
                 }
                 else{
                     budget_amount = et_budget.getText().toString().trim();
+
                     //month = et_month.getText().toString().trim();
                     month = String.valueOf(spinner_month.getSelectedItem());
 
-                    ApplicationClass.budget_list.add(new Budget(budget_amount, month));
+                    //month = et_month.getText().toString().trim();
+                    int monthno=-1;
+                    //month = month.toUpperCase();
+                    if (month.equals("January"))
+                        monthno = 0;
+                    else if (month.equals("February")){
+                        monthno = 1;
+                    }
+                    else if (month.equals("March")) {
+                        monthno = 2;
+                    }
+                    else if (month.equals("April")) {
+                        monthno = 3;
+                    }
+                    else if (month.equals("May")) {
+                        monthno = 4;
+                    }
+                    else if (month.equals("June")){
+                        monthno = 5;
+                    }
+                    else if(month.equals("July")){
+                        monthno = 6;
+                    } else if(month.equals("August")){
+                        monthno = 7;
+                    } else if(month.equals("September")){
+                        monthno = 8;
+                    } else if(month.equals("October")){
+                        monthno = 9;
+                    } else if(month.equals("November")){
+                        monthno = 10;
+                    } else if(month.equals("December")){
+                        monthno = 11;
+                    }
 
+
+
+                    boolean isInserted = bdHelper.insertData(monthno,Integer.parseInt(budget_amount));
+
+                    if(isInserted){
+                        Log.d("EFFDFDGFGFGHg","Data Inserted");
+                    }
+
+                    ApplicationClass.budget_list.add(new Budget(budget_amount, month));
+                    frag_home.adapter.notifyItemChanged(0);
                     frag_notifiactions.myAdapter.notifyDataSetChanged();
 
                     //frag_notifiactions.budget_list.

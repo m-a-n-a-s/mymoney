@@ -1,6 +1,7 @@
 package com.example.mymoney;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +16,10 @@ import java.util.ArrayList;
 public class budget_adapter extends RecyclerView.Adapter<budget_adapter.ViewHolder> {
 
     private ArrayList<Budget> budget;
+    BudgetDatabaseHelper bdHelper;
 
     public budget_adapter (Context context, ArrayList<Budget> list){
+        bdHelper = new BudgetDatabaseHelper(context);
         budget = list;
     }
 
@@ -67,8 +70,14 @@ public class budget_adapter extends RecyclerView.Adapter<budget_adapter.ViewHold
         holder.bt_delete_budget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                budget.remove(position);
-                budget_adapter.this.notifyDataSetChanged();
+                int del = bdHelper.deleteData(budget.get(position).getMonth() );
+                if (del != 0) {
+                    budget.remove(position);
+                    budget_adapter.this.notifyDataSetChanged();
+                    Log.d("asd","Deleted!!!");
+                }
+                else
+                    Log.d("bhad","Cannot delete");
             }
         });
     }

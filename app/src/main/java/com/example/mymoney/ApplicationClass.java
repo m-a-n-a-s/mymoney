@@ -1,9 +1,16 @@
 package com.example.mymoney;
 
 import android.app.Application;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.database.Cursor;
+import android.os.Build;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
+
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
@@ -15,6 +22,7 @@ public class ApplicationClass extends Application {
 
     public static ArrayList<Budget> budget_list;
     public static ArrayList<home_budget> home_budget_list;
+    private final String CHANNEL_ID = "personal notifications";
 
     @Override
     public void onCreate() {
@@ -68,5 +76,33 @@ public class ApplicationClass extends Application {
         home_budget_list.add(new home_budget("Budget:5000","Spent :" + Integer.toString(totalSpent), "Spend Today:500","1 June 2019","30 June 2019", "2 Days Left"));
 
 
+    }
+
+        public void notify (View view){
+        createchannel();
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
+                builder.setSmallIcon(R.drawable.ic_icon);
+                builder.setContentTitle("My notification");
+                builder.setContentText("Hello World!");
+                builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+
+        // notificationId is a unique int for each notification that you must define
+        notificationManager.notify(1, builder.build());
+    }
+
+    public void createchannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "Personal Notifcations";
+            String desc = "Include all notificatons";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+
+            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID,name,importance);
+            notificationChannel.setDescription(desc);
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
     }
 }

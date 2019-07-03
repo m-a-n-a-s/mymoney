@@ -1,7 +1,10 @@
 package com.example.mymoney;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +24,9 @@ import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import static android.content.Context.NOTIFICATION_SERVICE;
+import static androidx.core.content.ContextCompat.getSystemService;
 
 
 /**
@@ -74,6 +82,36 @@ public class frag_home extends Fragment {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "OnCreate chal gaya");
 
+    }
+
+    private final String CHANNEL_ID = "personal notifications";
+
+    public void notify (View view){
+        createchannel();
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getActivity(), CHANNEL_ID);
+        builder.setSmallIcon(R.drawable.ic_icon);
+        builder.setContentTitle("My notification");
+        builder.setContentText("Hello World!");
+        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(getActivity());
+
+        // notificationId is a unique int for each notification that you must define
+        notificationManager.notify(1, builder.build());
+    }
+
+    public void createchannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            CharSequence name = "Personal Notifcations";
+            String desc = "Include all notificatons";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+
+            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID,name,importance);
+            notificationChannel.setDescription(desc);
+            NotificationManager notificationManager = (NotificationManager) getSystemService(getActivity(),null);
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
     }
     TextView tvhome;
 

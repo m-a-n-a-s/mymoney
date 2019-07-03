@@ -141,7 +141,7 @@ public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapte
 
         holder.tv_budget.setText(" Budget : "+budget_for);
         holder.tv_spend.setText("Spent: "+months[currentMonth+1]);
-
+        holder.tv_safe_spend.setText("");
         //holder.tv_spend_today.setText(budget.get(position).getSpend_today());
         holder.tv_spend_today.setText("Spent Today: "+spent_today);
         //holder.tv_start_date.setText("");

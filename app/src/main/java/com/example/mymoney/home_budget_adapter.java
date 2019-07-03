@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -141,12 +142,14 @@ public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapte
 
         holder.tv_budget.setText(" Budget : "+budget_for);
         holder.tv_spend.setText("Spent: "+months[currentMonth+1]);
-        holder.tv_safe_spend.setText("");
+        int safe_spend = budget_for - months[currentMonth+1];
+        holder.tv_safe_spend.setText("Rs. "+safe_spend);
         //holder.tv_spend_today.setText(budget.get(position).getSpend_today());
         holder.tv_spend_today.setText("Spent Today: "+spent_today);
         //holder.tv_start_date.setText("");
         //holder.tv_end_date.setText("");
-        holder.tv_month.setText("Current month:");
+        String monthString = new DateFormatSymbols().getMonths()[currentMonth];
+        holder.tv_month.setText("Current month: "+ monthString);
         if(daysLeft==1)
             holder.tv_days_left.setText(daysLeft + " day left");
         else
@@ -154,7 +157,7 @@ public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapte
 
         holder.progress_bar.setProgress(percent);
 
-        if(percent >= 90){
+        if(percent >= 90 && budget_for != 0){
             MainActivity.getInstance().notify(position);
         }
 

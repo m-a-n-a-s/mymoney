@@ -74,6 +74,7 @@ public class budget_adapter extends RecyclerView.Adapter<budget_adapter.ViewHold
                 if (del != 0) {
                     budget.remove(position);
                     budget_adapter.this.notifyDataSetChanged();
+                    frag_home.adapter.notifyItemChanged(0);
                     Log.d("asd","Deleted!!!");
                 }
                 else

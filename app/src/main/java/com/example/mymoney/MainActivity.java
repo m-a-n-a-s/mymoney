@@ -59,13 +59,13 @@ public class MainActivity extends AppCompatActivity {
                     active = fragment1;
                     return true;
                 case R.id.navigation_dashboard:
-                    setTitle("Dashboard");
+                    setTitle("Transactions");
                     //mTextMessage.setText("fuck you 2");
                     fm.beginTransaction().hide(active).show(fragment2).commit();
                     active = fragment2;
                     return true;
                 case R.id.navigation_notifications:
-                    setTitle("Notifications");
+                    setTitle("Budgets");
                     //mTextMessage.setText("fuck you 3");
                     fm.beginTransaction().hide(active).show(fragment3).commit();
                     active = fragment3;

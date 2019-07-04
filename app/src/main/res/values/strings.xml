@@ -15,4 +15,7 @@
     <string name="action_ok">OK</string>
     <string name="delete">delete</string>
     <string name="create_budget">create budget</string>
+    <string name="transactions">Transactions</string>
+    <string name="budgets">Budgets</string>
+    <string name="submit">submit</string>
 </resources>

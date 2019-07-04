@@ -64,8 +64,8 @@ public class budget_adapter extends RecyclerView.Adapter<budget_adapter.ViewHold
     public void onBindViewHolder(@NonNull final budget_adapter.ViewHolder holder, final int position) {
         holder.itemView.setTag(budget.get(position));
 
-        holder.tvmonth.setText(budget.get(position).getMonth());
-        holder.tvamount.setText(budget.get(position).getAmount());
+        holder.tvmonth.setText("Month: "+budget.get(position).getMonth());
+        holder.tvamount.setText("Budget: ₹ "+budget.get(position).getAmount());
 
         holder.bt_delete_budget.setOnClickListener(new View.OnClickListener() {
             @Override

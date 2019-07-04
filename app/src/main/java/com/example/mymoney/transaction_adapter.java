@@ -49,8 +49,8 @@ public class transaction_adapter extends RecyclerView.Adapter<transaction_adapte
 
         holder.tv_info.setText(transactions.get(position).getInfo());
         holder.tv_date.setText(transactions.get(position).getDate());
-        holder.tv_receive.setText(transactions.get(position).getReceive());
-        holder.tv_expenditure.setText(transactions.get(position).getExpenditure());
+        holder.tv_receive.setText("Received: ₹ "+transactions.get(position).getReceive());
+        holder.tv_expenditure.setText("Spent: ₹ "+transactions.get(position).getExpenditure());
 
     }
 

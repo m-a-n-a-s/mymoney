@@ -81,8 +81,8 @@ public class ApplicationClass extends Application {
 
 
         transaction_list = new ArrayList<Transaction>();
-        transaction_list.add(new Transaction("Paytm to Ambani","29 June","Rs 5","Rs 0"));
-
+        transaction_list.add(new Transaction("Paytm to Ambani","29 June","5","0"));
+        transaction_list.add(new Transaction("Paytm to Ambani","29 June","5","0"));
     }
 
         public void notify (View view){

@@ -26,7 +26,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="12dp"
         android:text="Select Month:"
-        android:textColor="#000000"
+        android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -45,6 +45,8 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:text="submit" />
+        android:background="#FFFFFF"
+        android:textColor="@color/colorPrimary"
+        android:text="@string/submit" />
 
 </LinearLayout>

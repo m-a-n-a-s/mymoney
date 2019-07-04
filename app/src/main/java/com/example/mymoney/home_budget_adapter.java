@@ -140,12 +140,12 @@ public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapte
             percent = ((float) months[currentMonth + 1] / budget_for) * 100;
         }
 
-        holder.tv_budget.setText(" Budget : "+budget_for);
-        holder.tv_spend.setText("Spent: "+months[currentMonth+1]);
+        holder.tv_budget.setText(" Budget : ₹ "+budget_for);
+        holder.tv_spend.setText("Spent: ₹ "+months[currentMonth+1]);
         int safe_spend = budget_for - months[currentMonth+1];
-        holder.tv_safe_spend.setText("Rs. "+safe_spend);
+        holder.tv_safe_spend.setText("₹ "+safe_spend);
         //holder.tv_spend_today.setText(budget.get(position).getSpend_today());
-        holder.tv_spend_today.setText("Spent Today: "+spent_today);
+        holder.tv_spend_today.setText("Spent Today: ₹ "+spent_today);
         //holder.tv_start_date.setText("");
         //holder.tv_end_date.setText("");
         String monthString = new DateFormatSymbols().getMonths()[currentMonth];

@@ -18,6 +18,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
+        android:textStyle="bold"
         android:text="TextView"
         android:textSize="18sp" />
 
@@ -54,5 +55,12 @@
             android:text="TextView"
             android:textColor="#F44336" />
     </LinearLayout>
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/colorPrimaryLight" />
 
 </LinearLayout>

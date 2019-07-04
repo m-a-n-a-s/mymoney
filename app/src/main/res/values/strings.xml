@@ -18,4 +18,6 @@
     <string name="transactions">Transactions</string>
     <string name="budgets">Budgets</string>
     <string name="submit">submit</string>
+    <string name="safe_to_spend">Safe to Spend</string>
+    <string name="safeto_spend">SAFE TO SPEND</string>
 </resources>

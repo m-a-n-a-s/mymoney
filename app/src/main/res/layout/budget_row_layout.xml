@@ -5,6 +5,13 @@
     android:orientation="vertical">
 
 
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/colorPrimaryLight" />
+
     <TextView
         android:id="@+id/tvamount"
         android:layout_width="match_parent"

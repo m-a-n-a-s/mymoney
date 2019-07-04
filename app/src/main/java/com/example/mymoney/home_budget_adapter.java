@@ -1,12 +1,15 @@
 package com.example.mymoney;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,8 +27,10 @@ public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapte
 
     DatabaseHelper databaseHelper;
     private ArrayList<home_budget> budget;
+    Context context1;
 
     public home_budget_adapter (Context context, ArrayList<home_budget> list){
+        context1 = context;
         bdHelper = new BudgetDatabaseHelper(context);
         databaseHelper = new DatabaseHelper(context);
         budget = list;
@@ -40,6 +45,7 @@ public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapte
         TextView tv_month;
         TextView tv_days_left;
         TextView tv_safe_spend;
+        TextView textView9;
         CircularProgressBar progress_bar;
 
         public ViewHolder(@NonNull View itemView) {
@@ -53,7 +59,7 @@ public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapte
             tv_safe_spend = itemView.findViewById(R.id.tv_safe_spend);
             tv_days_left= itemView.findViewById(R.id.tv_days_left);
             progress_bar= itemView.findViewById(R.id.progress_bar);
-
+            textView9 = itemView.findViewById(R.id.textView9);
         }
     }
 
@@ -66,6 +72,7 @@ public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapte
     }
     public static final String TAG = "MainActivity";
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(@NonNull home_budget_adapter.ViewHolder holder, int position) {
 
@@ -143,7 +150,12 @@ public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapte
         holder.tv_budget.setText(" Budget : ₹ "+budget_for);
         holder.tv_spend.setText("Spent: ₹ "+months[currentMonth+1]);
         int safe_spend = budget_for - months[currentMonth+1];
-        holder.tv_safe_spend.setText("₹ "+safe_spend);
+        if(safe_spend>0) {
+            holder.tv_safe_spend.setText("₹ "+safe_spend);
+        }
+        else{
+            holder.tv_safe_spend.setText("₹ 0");
+        }
         //holder.tv_spend_today.setText(budget.get(position).getSpend_today());
         holder.tv_spend_today.setText("Spent Today: ₹ "+spent_today);
         //holder.tv_start_date.setText("");
@@ -159,7 +171,12 @@ public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapte
 
         if(percent >= 90 && budget_for != 0){
             MainActivity.getInstance().notify(position);
+            Toast.makeText(context1 , "You have spent 90% of your planned budget this month", Toast.LENGTH_SHORT).show();
+            holder.progress_bar.setColor(Color.parseColor("#F44336"));
+            holder.progress_bar.setBackgroundColor(Color.parseColor("#FFCDD2"));
+            holder.textView9.setTextColor(Color.parseColor("#F44336"));
         }
+
 
         Log.d("OIPOOK",""+percent);
 

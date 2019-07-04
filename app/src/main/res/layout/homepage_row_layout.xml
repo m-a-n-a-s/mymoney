@@ -17,9 +17,9 @@
             android:layout_height="326dp"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="8dp"
-            app:cpb_background_progressbar_color="#FFCDD2"
+            app:cpb_background_progressbar_color="@color/colorPrimaryLight"
             app:cpb_background_progressbar_width="5dp"
-            app:cpb_progressbar_color="#F44336"
+            app:cpb_progressbar_color="@color/colorPrimaryDark"
             app:cpb_progressbar_width="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.494"
@@ -32,26 +32,29 @@
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="64dp"
-            android:text="Safe to Spend"
+            android:layout_marginStart="52dp"
+            android:text="@string/safeto_spend"
+            android:textColor="@color/colorPrimary"
             android:textSize="30sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
             app:layout_constraintStart_toStartOf="@+id/progress_bar"
             app:layout_constraintTop_toTopOf="@+id/progress_bar"
-            app:layout_constraintVertical_bias="0.389" />
+            app:layout_constraintVertical_bias="0.414" />
 
         <TextView
             android:id="@+id/tv_safe_spend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="Rs 5000"
+            android:text="rs 50000"
             android:textSize="36sp"
             app:layout_constraintBottom_toBottomOf="@+id/progress_bar"
             app:layout_constraintEnd_toEndOf="@+id/progress_bar"
+            app:layout_constraintHorizontal_bias="0.502"
             app:layout_constraintStart_toStartOf="@+id/progress_bar"
             app:layout_constraintTop_toBottomOf="@+id/textView9"
-            app:layout_constraintVertical_bias="0.11" />
+            app:layout_constraintVertical_bias="0.105" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -64,6 +67,7 @@
         android:layout_marginRight="10dp"
         android:gravity="center"
         android:text="TextView"
+        android:textColor="@color/colorPrimary"
         android:textSize="30sp"
         android:textStyle="bold" />
 
@@ -95,12 +99,19 @@
 
     </LinearLayout>
 
+    <View
+        android:id="@+id/view4"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimaryLight" />
+
     <TextView
         android:id="@+id/tv_month"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
         android:gravity="center"
         android:text="TextView"
@@ -115,6 +126,7 @@
         android:layout_marginRight="10dp"
         android:gravity="center"
         android:text="TextView"
+        android:textColor="#FF9800"
         android:textSize="24sp" />
 
 </LinearLayout>

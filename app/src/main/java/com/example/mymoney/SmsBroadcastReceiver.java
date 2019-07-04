@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Build;
 import android.provider.Telephony;
 import android.telephony.SmsMessage;
@@ -16,11 +17,14 @@ import android.widget.Toast;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import java.text.DateFormatSymbols;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static android.content.Context.MODE_PRIVATE;
 import static android.content.Context.NOTIFICATION_SERVICE;
+import static com.example.mymoney.ApplicationClass.transaction_list;
 
 /**
  * A broadcast receiver who listens for incoming SMS
@@ -58,6 +62,9 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 //            if(!(smsSender.charAt(0) =='+') && !smsSender.matches("[0-9]+"))
             if(true)
             {
+                transaction_list.clear();
+                frag_dash.transadapter.notifyDataSetChanged();
+
                 //MainActivity.getInstance().notify(context);
                 Log.d(TAG, "\n\n\nInside 1 if\n\n\n");
 
@@ -69,12 +76,20 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
                     //amount = Integer.parseInt(matcher.group(1));
                     amount = Float.valueOf(matcher.group(1)).intValue();
 
+//                    String monthString = new DateFormatSymbols().getMonths()[9];
+////                    String date = cursor.getString(1).charAt(5)+cursor.getString(1).charAt(6)+" "+monthString;
+//                    String date = "broud";
+
                     if (smsBody.contains("CREDITED")) {
                         Log.d(TAG, "credited");
+                        //transaction_list.add(new Transaction("Paytm to Ambani","iejdie","jed","0"));
                     } else if (smsBody.contains("DEBITED")) {
                         amount = 0 - amount;
                         Log.d(TAG, "debited");
+                        //transaction_list.add(new Transaction("Paytm to Ambani","iejdie","jed","0"));
                     }
+
+
 
                     Log.d(TAG, "SMS detected: From ");
                     Log.d(TAG, "Amount is : " + amount);
@@ -85,11 +100,30 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 
 
                         Toast.makeText(context,"Data Inserted",Toast.LENGTH_LONG).show();
-                        frag_home.adapter.notifyItemChanged(0);
                     }
                     else
 
                         Toast.makeText(context,"Data Not Inserted",Toast.LENGTH_LONG).show();
+
+                    Cursor cursor = (Cursor) myDB.getTransactions();
+                    StringBuffer sb = new StringBuffer();
+                    while (cursor.moveToNext()) {
+                        sb.append(cursor.getString(1) + "---> " + cursor.getString(2) + "\n");
+                        int month = Integer.parseInt("" + sb.charAt(5) + sb.charAt(6));
+                        String monthString = new DateFormatSymbols().getMonths()[month-1];
+                        String date = cursor.getString(1).charAt(8)+""+cursor.getString(1).charAt(9)+" "+monthString;
+                        String amount = cursor.getString(2);
+                              if(amount.charAt(0) == '-') {
+                                  amount = amount.substring(1);
+                                  //transaction_list2 = new ArrayList<Transaction>();
+                                  //transaction_list.remove(0);
+                                  Log.d("dadad","cleared array");
+                                  transaction_list.add(new Transaction("Paytm to Ambani", date, amount, "0"));
+                              }
+                                else
+                                      transaction_list.add(new Transaction("Paytm to Ambani",date,"0",amount));
+                    }
+
                 }
             }
         }

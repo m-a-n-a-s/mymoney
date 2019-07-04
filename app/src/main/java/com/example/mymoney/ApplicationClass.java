@@ -49,6 +49,13 @@ public class ApplicationClass extends Application {
             int month = Integer.parseInt("" + sb.charAt(5) + sb.charAt(6));
             months[month] += Integer.parseInt(cursor.getString(2));
             months[12] = Integer.parseInt("" + sb.charAt(0) + sb.charAt(1) + sb.charAt(2) + sb.charAt(3));
+            String monthString = new DateFormatSymbols().getMonths()[month-1];
+            String date = cursor.getString(1).charAt(5)+cursor.getString(1).charAt(6)+" "+monthString;
+            String amount = cursor.getString(2);
+      //      if(amount.charAt(0) == '-')
+//                transaction_list.add(new Transaction("Paytm to Ambani",date,amount,"0"));
+    //        else
+  //              transaction_list.add(new Transaction("Paytm to Ambani",date,"0",amount));
         }
 
         Log.d(TAG, "Current Month   --- " + currentMonth);
@@ -81,8 +88,7 @@ public class ApplicationClass extends Application {
 
 
         transaction_list = new ArrayList<Transaction>();
-        transaction_list.add(new Transaction("Paytm to Ambani","29 June","5","0"));
-        transaction_list.add(new Transaction("Paytm to Ambani","29 June","5","0"));
+        transaction_list.add(new Transaction("No transactions to Show","","0","0"));
     }
 
         public void notify (View view){

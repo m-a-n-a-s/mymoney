@@ -104,6 +104,7 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 
 
                         Toast.makeText(context,"Data Inserted",Toast.LENGTH_LONG).show();
+                        frag_home.adapter.notifyItemChanged(0);
                     }
                     else
 

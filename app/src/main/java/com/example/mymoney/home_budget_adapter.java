@@ -141,7 +141,7 @@ public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapte
             }
         }
 
-        float percent = 100;
+        float percent = 0;
         if (budget_for != 0) {
 
             percent = ((float) months[currentMonth + 1] / budget_for) * 100;
@@ -175,6 +175,11 @@ public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapte
             holder.progress_bar.setColor(Color.parseColor("#F44336"));
             holder.progress_bar.setBackgroundColor(Color.parseColor("#FFCDD2"));
             holder.textView9.setTextColor(Color.parseColor("#F44336"));
+        }
+        else{
+            holder.progress_bar.setColor(Color.parseColor("#4CAF50"));
+            holder.progress_bar.setBackgroundColor(Color.parseColor("#C8E6C9"));
+            holder.textView9.setTextColor(Color.parseColor("#4CAF50"));
         }
 
 

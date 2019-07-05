@@ -88,7 +88,32 @@ public class ApplicationClass extends Application {
 
 
         transaction_list = new ArrayList<Transaction>();
+        int emptydb = 1;
+
+        Cursor cursor2 = (Cursor) databaseHelper.ReverseDB();
+        StringBuffer sb2 = new StringBuffer();
+        while (cursor2.moveToNext()) {
+            emptydb = 0;
+            sb2.append(cursor2.getString(1) + "---> " + cursor2.getString(2) + "\n");
+            int month = Integer.parseInt("" + sb2.charAt(5) + sb2.charAt(6));
+            String monthString = new DateFormatSymbols().getMonths()[month-1];
+            String date = cursor2.getString(1).charAt(8)+""+cursor2.getString(1).charAt(9)+" "+monthString;
+            String amount = cursor2.getString(2);
+
+            if(amount.charAt(0) == '-') {
+                amount = amount.substring(1);
+                //transaction_list2 = new ArrayList<Transaction>();
+                //transaction_list.remove(0);
+                Log.d("dadad","cleared array");
+                transaction_list.add(new Transaction("Paytm to Ambani", date, amount, "0"));
+            }
+            else
+                transaction_list.add(new Transaction("Paytm to Ambani",date,"0",amount));
+        }
+
+        if(emptydb == 1)
         transaction_list.add(new Transaction("No transactions to Show","","0","0"));
+
     }
 
         public void notify (View view){

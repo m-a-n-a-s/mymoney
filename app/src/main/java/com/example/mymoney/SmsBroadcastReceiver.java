@@ -17,8 +17,12 @@ import android.widget.Toast;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import java.text.DateFormat;
 import java.text.DateFormatSymbols;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -105,7 +109,7 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 
                         Toast.makeText(context,"Data Not Inserted",Toast.LENGTH_LONG).show();
 
-                    Cursor cursor = (Cursor) myDB.getTransactions();
+                    Cursor cursor = (Cursor) myDB.ReverseDB();
                     StringBuffer sb = new StringBuffer();
                     while (cursor.moveToNext()) {
                         sb.append(cursor.getString(1) + "---> " + cursor.getString(2) + "\n");
@@ -113,15 +117,38 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
                         String monthString = new DateFormatSymbols().getMonths()[month-1];
                         String date = cursor.getString(1).charAt(8)+""+cursor.getString(1).charAt(9)+" "+monthString;
                         String amount = cursor.getString(2);
-                              if(amount.charAt(0) == '-') {
-                                  amount = amount.substring(1);
-                                  //transaction_list2 = new ArrayList<Transaction>();
-                                  //transaction_list.remove(0);
-                                  Log.d("dadad","cleared array");
-                                  transaction_list.add(new Transaction("Paytm to Ambani", date, amount, "0"));
-                              }
-                                else
-                                      transaction_list.add(new Transaction("Paytm to Ambani",date,"0",amount));
+                        String[] time = cursor.getString(1).split(" ");
+                        int pm = 0;
+                        if (Integer.parseInt(time[1].split(":")[0]) >= 12 )
+                            pm = 1;
+                        String df = "";
+
+
+                        try {
+                            final SimpleDateFormat sdf = new SimpleDateFormat("H:mm:ss");
+                            final Date dateObj = sdf.parse(time[1]);
+                            System.out.println(dateObj);
+                            System.out.println(new SimpleDateFormat("K:mm").format(dateObj));
+                            df = new SimpleDateFormat("K:mm").format(dateObj);
+                            Log.d("--------------", df);
+
+                        } catch (final ParseException e) {
+                            e.printStackTrace();
+                        }
+
+                        String time12hr = df + " " + ((pm == 1) ? "PM" : "AM");
+
+
+                          if(amount.charAt(0) == '-') {
+                              amount = amount.substring(1);
+                              //transaction_list2 = new ArrayList<Transaction>();
+                              //transaction_list.remove(0);
+                              Log.d("dadad","cleared array");
+
+                              transaction_list.add(new Transaction(date, time12hr, amount, "0"));
+                          }
+                            else
+                                  transaction_list.add(new Transaction(date,time12hr,"0",amount));
                     }
 
                 }

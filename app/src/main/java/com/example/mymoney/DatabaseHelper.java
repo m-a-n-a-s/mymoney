@@ -53,4 +53,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM DATA_TABLE",null);
         return cursor;
     }
+
+    public Cursor ReverseDB(){
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT * FROM DATA_TABLE ORDER BY ID DESC", null);
+        return cursor;
+    }
 }

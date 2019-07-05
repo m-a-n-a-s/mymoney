@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -28,6 +29,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.text.DateFormatSymbols;
+
+import static com.example.mymoney.ApplicationClass.transaction_list;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -98,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
         //mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
         instance = this;
+
+
 
     }
 

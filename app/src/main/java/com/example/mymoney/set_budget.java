@@ -15,18 +15,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Calendar;
+import android.widget.Toast;
 
 
 public class set_budget extends AppCompatActivity {
 
     EditText et_budget;
-    //EditText et_month;
     Button bt_submit;
     Spinner spinner_month;
-
-    //Fragment fragNotifications = new frag_notifiactions();
-    //FragmentManager fragmentManager;
-
 
     String budget_amount= "r";
     String month="r";
@@ -39,7 +35,6 @@ public class set_budget extends AppCompatActivity {
 
 
         et_budget = findViewById(R.id.et_budget);
-        //et_month = findViewById(R.id.et_month);
         bt_submit = findViewById(R.id.bt_submit);
         spinner_month = (Spinner) findViewById(R.id.spinner_months);
 
@@ -61,24 +56,19 @@ public class set_budget extends AppCompatActivity {
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_month.setAdapter(dataAdapter);
 
-//        fragmentManager = this.getSupportFragmentManager();
-//        fragNotifications= (frag_notifiactions) fragmentManager.
 
         bt_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(et_budget.getText().toString().isEmpty()){//||et_month.getText().toString().isEmpty()){
+                if(et_budget.getText().toString().isEmpty()){
                     Toast.makeText(set_budget.this, "Please enter all fields!", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     budget_amount = et_budget.getText().toString().trim();
 
-                    //month = et_month.getText().toString().trim();
                     month = String.valueOf(spinner_month.getSelectedItem());
 
-                    //month = et_month.getText().toString().trim();
                     int monthno=-1;
-                    //month = month.toUpperCase();
                     if (month.equals("January"))
                         monthno = 0;
                     else if (month.equals("February")){
@@ -114,33 +104,18 @@ public class set_budget extends AppCompatActivity {
 
                     boolean isInserted = bdHelper.insertData(monthno,Integer.parseInt(budget_amount));
 
-                    if(isInserted){
-                        Log.d("EFFDFDGFGFGHg","Data Inserted");
+                    if(isInserted) {
+                        ApplicationClass.budget_list.add(new Budget(budget_amount, month));
+                        frag_home.adapter.notifyItemChanged(0);
+                        frag_notifiactions.myAdapter.notifyDataSetChanged();
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(),"Budget already exists!",Toast.LENGTH_LONG).show();
                     }
 
-                    ApplicationClass.budget_list.add(new Budget(budget_amount, month));
-                    frag_home.adapter.notifyItemChanged(0);
-                    frag_notifiactions.myAdapter.notifyDataSetChanged();
-
-                    //frag_notifiactions.budget_list.
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString("budget_amount", budget_amount);
-//                    //bundle.putString("month", month);
-//                    Fragment myobj = new frag_notifiactions();
-//                    myobj.setArguments(bundle);
-//                    Intent intent = new Intent();
-//                    intent.putExtra("budget_amount", budget_amount);
-//                    intent.putExtra("month", month);
-//                    setResult(RESULT_OK,intent);
                     set_budget.this.finish();
                 }
             }
         });
     }
-//    public String[] getMyData(){
-//        String[] data = new String[2];
-//        data[0]= budget_amount;
-//        data[1]= month;
-//        return data;
-//    }
 }

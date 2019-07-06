@@ -43,19 +43,12 @@ public class ApplicationClass extends Application {
         for (int i = 0; i < 13; i++) {
             months[i] = 0;
         }
-        //month at 5 and 6
         while (cursor.moveToNext()) {
             sb.append(cursor.getString(1) + "---> " + cursor.getString(2) + "\n");
             int month = Integer.parseInt("" + sb.charAt(5) + sb.charAt(6));
             months[month] += Integer.parseInt(cursor.getString(2));
             months[12] = Integer.parseInt("" + sb.charAt(0) + sb.charAt(1) + sb.charAt(2) + sb.charAt(3));
             String monthString = new DateFormatSymbols().getMonths()[month-1];
-            String date = cursor.getString(1).charAt(5)+cursor.getString(1).charAt(6)+" "+monthString;
-            String amount = cursor.getString(2);
-      //      if(amount.charAt(0) == '-')
-//                transaction_list.add(new Transaction("Paytm to Ambani",date,amount,"0"));
-    //        else
-  //              transaction_list.add(new Transaction("Paytm to Ambani",date,"0",amount));
         }
 
         Log.d(TAG, "Current Month   --- " + currentMonth);
@@ -81,7 +74,6 @@ public class ApplicationClass extends Application {
             budget_list.add(new Budget(amount,monthString));
 
         }
-        //budget_list.add(new Budget("1000", "march"));
 
         home_budget_list = new ArrayList<home_budget>();
         home_budget_list.add(new home_budget("Budget:5000","Spent :" + Integer.toString(totalSpent), "Spend Today:500","1 June 2019","30 June 2019", "2 Days Left"));
@@ -102,8 +94,6 @@ public class ApplicationClass extends Application {
 
             if(amount.charAt(0) == '-') {
                 amount = amount.substring(1);
-                //transaction_list2 = new ArrayList<Transaction>();
-                //transaction_list.remove(0);
                 Log.d("dadad","cleared array");
                 transaction_list.add(new Transaction("Paytm to Ambani", date, amount, "0"));
             }
@@ -127,7 +117,6 @@ public class ApplicationClass extends Application {
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
 
-        // notificationId is a unique int for each notification that you must define
         notificationManager.notify(1, builder.build());
     }
 

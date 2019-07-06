@@ -93,11 +93,6 @@ public class frag_home extends Fragment {
         // Inflate the layout for this fragment
         DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
         view = inflater.inflate(R.layout.fragment_frag_home, container, false);
-//        tvhome = (TextView)view.findViewById(R.id.tvhome);
-//        tvhome.setText("welcome to home");
-
-//        CircularProgressBar circularProgressBar = (CircularProgressBar)view.findViewById(R.id.pbar);
-//        circularProgressBar.setProgress(80);
 
         Cursor cursor = (Cursor) databaseHelper.getTransactions();
         Calendar cal = Calendar.getInstance();
@@ -124,10 +119,6 @@ public class frag_home extends Fragment {
         for(int s:months) {
             arrayList.add(String.valueOf(s));
         }
-
-//        TextView spent = (TextView) view.findViewById((R.id.tvspend));
-//        int totalSpent = months[currentMonth];
-//        spent.setText("Spent :"+Integer.toString(totalSpent));
         return view;
     }
 

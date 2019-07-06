@@ -73,8 +73,6 @@ public class frag_dash extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_frag_dash, container, false);
-//        tvdash = (TextView)view.findViewById(R.id.tvdash);
-//        tvdash.setText("welcome to dashboard");
         return view;
     }
 

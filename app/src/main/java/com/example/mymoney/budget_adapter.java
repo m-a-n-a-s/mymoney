@@ -34,21 +34,6 @@ public class budget_adapter extends RecyclerView.Adapter<budget_adapter.ViewHold
             tvmonth = itemView.findViewById(R.id.tvmonth);
             bt_delete_budget= itemView.findViewById(R.id.bt_delete_budget);
 
-
-//            bt_edit_budget.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    tvamount.setText("hello");
-//                }
-//            });
-
-//            bt_delete_budget.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    tvamount.setText(null);
-//                    tvmonth.setText(null);
-//                }
-//            });
         }
     }
     @NonNull

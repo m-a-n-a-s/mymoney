@@ -5,8 +5,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class BudgetDatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "Budget.db";
@@ -32,9 +30,6 @@ public class BudgetDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean insertData(Integer month,Integer budget_amount){
-        // set the format to sql date time
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        Date date = new Date();
         ContentValues initialValues = new ContentValues();
         initialValues.put("ID", month+1);
         initialValues.put("AMOUNT",budget_amount);

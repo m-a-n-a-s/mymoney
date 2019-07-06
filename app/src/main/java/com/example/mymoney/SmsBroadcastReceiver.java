@@ -68,35 +68,26 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
             {
                 transaction_list.clear();
                 frag_dash.transadapter.notifyDataSetChanged();
-
-                //MainActivity.getInstance().notify(context);
-                Log.d(TAG, "\n\n\nInside 1 if\n\n\n");
+//                Log.d(TAG, "\n\n\nInside 1 if\n\n\n");
 
                 Pattern regex = Pattern.compile("(?:RS\\.?|INR)\\s*(\\d+(?:[.,]\\d+)*)|(\\d+(?:[.,]\\d+)*)\\s*(?:RS\\.?|INR)");
                 Matcher matcher = regex.matcher(smsBody);
                 if(matcher.find()) {
                     Log.d(TAG, "\n\n\nInside 2nd if\n\n\n");
 
-                    //amount = Integer.parseInt(matcher.group(1));
                     amount = Float.valueOf(matcher.group(1)).intValue();
-
-//                    String monthString = new DateFormatSymbols().getMonths()[9];
-////                    String date = cursor.getString(1).charAt(5)+cursor.getString(1).charAt(6)+" "+monthString;
-//                    String date = "broud";
 
                     if (smsBody.contains("CREDITED")) {
                         Log.d(TAG, "credited");
-                        //transaction_list.add(new Transaction("Paytm to Ambani","iejdie","jed","0"));
                     } else if (smsBody.contains("DEBITED")) {
                         amount = 0 - amount;
                         Log.d(TAG, "debited");
-                        //transaction_list.add(new Transaction("Paytm to Ambani","iejdie","jed","0"));
                     }
 
 
 
-                    Log.d(TAG, "SMS detected: From ");
-                    Log.d(TAG, "Amount is : " + amount);
+//                    Log.d(TAG, "SMS detected: From ");
+//                    Log.d(TAG, "Amount is : " + amount);
 
                     boolean isInserted = myDB.insertData(amount);
                     if(isInserted == true){
@@ -131,7 +122,7 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
                             System.out.println(dateObj);
                             System.out.println(new SimpleDateFormat("K:mm").format(dateObj));
                             df = new SimpleDateFormat("K:mm").format(dateObj);
-                            Log.d("--------------", df);
+                            //Log.d("--------------", df);
 
                         } catch (final ParseException e) {
                             e.printStackTrace();
@@ -142,9 +133,7 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 
                           if(amount.charAt(0) == '-') {
                               amount = amount.substring(1);
-                              //transaction_list2 = new ArrayList<Transaction>();
-                              //transaction_list.remove(0);
-                              Log.d("dadad","cleared array");
+//                              Log.d("dadad","cleared array");
 
                               transaction_list.add(new Transaction(date, time12hr, amount, "0"));
                           }

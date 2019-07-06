@@ -18,7 +18,6 @@ import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 
 public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapter.ViewHolder> {
@@ -40,8 +39,6 @@ public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapte
         TextView tv_budget;
         TextView tv_spend;
         TextView tv_spend_today;
-        //TextView tv_start_date;
-        //TextView tv_end_date;
         TextView tv_month;
         TextView tv_days_left;
         TextView tv_safe_spend;
@@ -53,8 +50,6 @@ public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapte
             tv_budget = itemView.findViewById(R.id.tv_budget);
             tv_spend = itemView.findViewById(R.id.tv_spend);
             tv_spend_today = itemView.findViewById(R.id.tv_spend_today);
-            //tv_start_date = itemView.findViewById(R.id.tv_start_date);
-            //tv_end_date = itemView.findViewById(R.id.tv_end_date);
             tv_month= itemView.findViewById(R.id.tv_month);
             tv_safe_spend = itemView.findViewById(R.id.tv_safe_spend);
             tv_days_left= itemView.findViewById(R.id.tv_days_left);
@@ -99,8 +94,6 @@ public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapte
             {
                 months[month] += 0-Integer.parseInt(cursor.getString(2));
                 months[12] = Integer.parseInt("" + sb.charAt(0) + sb.charAt(1) + sb.charAt(2) + sb.charAt(3));
-                //Log.d(TAG,"\n\n\n"+sb.charAt(8)+sb.charAt(9)+"\n\n\n");
-                //Log.d(TAG,"\n\n\n"+sb.charAt(5)+sb.charAt(6)+"\n\n\n");
 
                 if(
                         (currentDate == Integer.parseInt(""+sb.charAt(8)+sb.charAt(9)))
@@ -156,10 +149,7 @@ public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapte
         else{
             holder.tv_safe_spend.setText("₹ 0");
         }
-        //holder.tv_spend_today.setText(budget.get(position).getSpend_today());
         holder.tv_spend_today.setText("Spent Today: ₹ "+spent_today);
-        //holder.tv_start_date.setText("");
-        //holder.tv_end_date.setText("");
         String monthString = new DateFormatSymbols().getMonths()[currentMonth];
         holder.tv_month.setText("Current month: "+ monthString);
         if(daysLeft==1)

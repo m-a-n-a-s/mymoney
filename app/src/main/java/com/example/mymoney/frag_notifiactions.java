@@ -77,8 +77,6 @@ public class frag_notifiactions extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_frag_notifiactions, container, false);
-//        tvnotifications = (TextView) view.findViewById(R.id.tvnot);
-//        tvnotifications.setText("welcome to notifications");
 
         btbudget= view.findViewById(R.id.btbudget);
         btbudget.setOnClickListener(new View.OnClickListener() {
@@ -132,20 +130,6 @@ public class frag_notifiactions extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-    //        lvbudgets = (ListView)view.findViewById(R.id.lvbudgets);
-    //
-    //        budget_list = new ArrayList<Budget>();
-    //
-    //        Budget budget1= new Budget("5000","June");
-    //        Budget budget2= new Budget("1500", "July");
-    //
-    //        budget_list.add(budget1);
-    //        budget_list.add(budget2);
-    //
-    //        BudgetAdapter adapter = new BudgetAdapter(getActivity(), budget_list);
-    //        lvbudgets.setAdapter(adapter);
-
-
 
         recyclerView = view.findViewById(R.id.rvbudgets);
         recyclerView.setHasFixedSize(true);

@@ -161,7 +161,7 @@ public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapte
 
         if(percent >= 90 && budget_for != 0){
             MainActivity.getInstance().notify(position);
-            Toast.makeText(context1 , "You have spent 90% of your planned budget this month", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context1 , "You have spent more than 90% of your planned budget this month", Toast.LENGTH_SHORT).show();
             holder.progress_bar.setColor(Color.parseColor("#F44336"));
             holder.progress_bar.setBackgroundColor(Color.parseColor("#FFCDD2"));
             holder.textView9.setTextColor(Color.parseColor("#F44336"));
@@ -173,7 +173,7 @@ public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapte
         }
 
 
-        Log.d("OIPOOK",""+percent);
+        //Log.d("OIPOOK",""+percent);
 
     }
 

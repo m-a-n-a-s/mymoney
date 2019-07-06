@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID);
                 builder.setSmallIcon(R.drawable.ic_rupee);
                 builder.setContentTitle("Hold On !!");
-                builder.setContentText("You have spent 90% of your planned budget this month!");
+                builder.setContentText("You have spent more than 90% of your planned budget this month!");
                 builder.setPriority(NotificationCompat.PRIORITY_HIGH);
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);

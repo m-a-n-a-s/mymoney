@@ -63,8 +63,8 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 
             smsBody = smsBody.toUpperCase();
 
-//            if(!(smsSender.charAt(0) =='+') && !smsSender.matches("[0-9]+"))
-            if(true)
+            if(!(smsSender.charAt(0) =='+') && !smsSender.matches("[0-9]+"))
+
             {
                 transaction_list.clear();
                 frag_dash.transadapter.notifyDataSetChanged();
@@ -94,12 +94,12 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
                         String value = settings.getString("key", "");
 
 
-                        Toast.makeText(context,"Data Inserted",Toast.LENGTH_LONG).show();
+                        //Toast.makeText(context,"Data Inserted",Toast.LENGTH_LONG).show();
                         frag_home.adapter.notifyItemChanged(0);
                     }
-                    else
+                    //else
 
-                        Toast.makeText(context,"Data Not Inserted",Toast.LENGTH_LONG).show();
+                        //Toast.makeText(context,"Data Not Inserted",Toast.LENGTH_LONG).show();
 
                     Cursor cursor = (Cursor) myDB.ReverseDB();
                     StringBuffer sb = new StringBuffer();

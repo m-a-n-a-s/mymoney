@@ -13,8 +13,11 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import java.text.DateFormatSymbols;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class ApplicationClass extends Application {
     int totalSpent = 10;
@@ -31,6 +34,7 @@ public class ApplicationClass extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        DatabaseHelper myDB = new DatabaseHelper(this);
         DatabaseHelper databaseHelper = new DatabaseHelper(this);
         BudgetDatabaseHelper bdhelper = new BudgetDatabaseHelper(this);
         Cursor cursor = (Cursor) databaseHelper.getTransactions();
@@ -82,23 +86,45 @@ public class ApplicationClass extends Application {
         transaction_list = new ArrayList<Transaction>();
         int emptydb = 1;
 
-        Cursor cursor2 = (Cursor) databaseHelper.ReverseDB();
-        StringBuffer sb2 = new StringBuffer();
-        while (cursor2.moveToNext()) {
+        Cursor rcursor = (Cursor) myDB.ReverseDB();
+        StringBuffer bs = new StringBuffer();
+        while (rcursor.moveToNext()) {
             emptydb = 0;
-            sb2.append(cursor2.getString(1) + "---> " + cursor2.getString(2) + "\n");
-            int month = Integer.parseInt("" + sb2.charAt(5) + sb2.charAt(6));
+            bs.append(rcursor.getString(1) + "---> " + rcursor.getString(2) + "\n");
+            int month = Integer.parseInt("" + bs.charAt(5) + bs.charAt(6));
             String monthString = new DateFormatSymbols().getMonths()[month-1];
-            String date = cursor2.getString(1).charAt(8)+""+cursor2.getString(1).charAt(9)+" "+monthString;
-            String amount = cursor2.getString(2);
+            String date = rcursor.getString(1).charAt(8)+""+rcursor.getString(1).charAt(9)+" "+monthString;
+            String amount = rcursor.getString(2);
+            String[] time = rcursor.getString(1).split(" ");
+            int pm = 0;
+            if (Integer.parseInt(time[1].split(":")[0]) >= 12 )
+                pm = 1;
+            String df = "";
+
+
+            try {
+                final SimpleDateFormat sdf = new SimpleDateFormat("H:mm:ss");
+                final Date dateObj = sdf.parse(time[1]);
+                System.out.println(dateObj);
+                System.out.println(new SimpleDateFormat("K:mm").format(dateObj));
+                df = new SimpleDateFormat("K:mm").format(dateObj);
+                //Log.d("--------------", df);
+
+            } catch (final ParseException e) {
+                e.printStackTrace();
+            }
+
+            String time12hr = df + " " + ((pm == 1) ? "PM" : "AM");
+
 
             if(amount.charAt(0) == '-') {
                 amount = amount.substring(1);
-                Log.d("dadad","cleared array");
-                transaction_list.add(new Transaction("Paytm to Ambani", date, amount, "0"));
+//                              Log.d("dadad","cleared array");
+
+                transaction_list.add(new Transaction(date, time12hr, amount, "0"));
             }
             else
-                transaction_list.add(new Transaction("Paytm to Ambani",date,"0",amount));
+                transaction_list.add(new Transaction(date,time12hr,"0",amount));
         }
 
         if(emptydb == 1)

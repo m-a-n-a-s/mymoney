@@ -79,7 +79,7 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 
                     if (smsBody.contains("CREDITED")) {
                         Log.d(TAG, "credited");
-                    } else if (smsBody.contains("DEBITED")) {
+                    } else if (smsBody.contains("DEBITED")|| smsBody.contains("PAID")) {
                         amount = 0 - amount;
                         Log.d(TAG, "debited");
                     }

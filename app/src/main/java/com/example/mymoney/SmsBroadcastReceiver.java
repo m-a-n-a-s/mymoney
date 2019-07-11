@@ -64,7 +64,7 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
             smsBody = smsBody.toUpperCase();
 
             if(!(smsSender.charAt(0) =='+') && !smsSender.matches("[0-9]+"))
-
+            //if (true)
             {
                 transaction_list.clear();
                 frag_dash.transadapter.notifyDataSetChanged();

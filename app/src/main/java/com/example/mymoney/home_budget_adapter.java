@@ -96,9 +96,12 @@ public class home_budget_adapter extends RecyclerView.Adapter<home_budget_adapte
                 months[12] = Integer.parseInt("" + sb.charAt(0) + sb.charAt(1) + sb.charAt(2) + sb.charAt(3));
 
                 if(
-                        (currentDate == Integer.parseInt(""+sb.charAt(8)+sb.charAt(9)))
-                                &&
-                                (currentMonth + 1 == Integer.parseInt(""+sb.charAt(5)+sb.charAt(6))))
+//                        (currentDate == Integer.parseInt(""+sb.charAt(8)+sb.charAt(9)))
+//                                &&
+//                                (currentMonth + 1 == Integer.parseInt(""+sb.charAt(5)+sb.charAt(6)))
+                        true
+
+                )
                 {
                     spent_today +=   0-Integer.parseInt(cursor.getString(2));
 
